@@ -3,6 +3,8 @@ package com.example.xxxxxx;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,13 +43,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("rabbit", "onClick: ");
-
+                videoPlayer.seekTo(videoPlayer.getContentPosition() + 5000);
                 imageView.setVisibility(View.VISIBLE);
-//                Transition transition = new Slide(Gravity.LEFT);
-//                transition.setDuration(1000);
-//                transition.addTarget(imageView);
-//                TransitionManager.beginDelayedTransition((ViewGroup)imageView.getParent(), transition);
-//                imageView.setVisibility(View.GONE);
+                imageView.animate()
+                        .translationY(view.getHeight())
+                        .setDuration(1000)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                imageView.setVisibility(View.GONE);
+                            }
+                        });
+
 //                try {
 //                    Thread.sleep(1000);
 //                } catch (InterruptedException e) {
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 //                imageView.setVisibility(View.GONE);
             }
         });
+
         initializePlayer();
     }
     TimerTask task= new TimerTask() {
