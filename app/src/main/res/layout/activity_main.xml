@@ -6,19 +6,32 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/video_player_view"
-
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:auto_show="true"
-            app:controller_layout_id="@layout/custom_exo_controller_view"
-            app:fastforward_increment="10000"
-            app:repeat_toggle_modes="none"
-            app:resize_mode="fixed_width"
-            app:rewind_increment="10000"
-            app:surface_type="surface_view"
-            app:use_controller="true" />
+            android:layout_height="match_parent">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/video_player_view"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:auto_show="true"
+                app:controller_layout_id="@layout/custom_exo_controller_view"
+                app:fastforward_increment="10000"
+                app:repeat_toggle_modes="none"
+                app:resize_mode="fixed_width"
+                app:rewind_increment="10000"
+                app:surface_type="surface_view"
+                app:use_controller="true" />
+        <ImageView
+                android:visibility="gone"
+                android:id="@+id/a15"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_launcher_foreground"/>
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
