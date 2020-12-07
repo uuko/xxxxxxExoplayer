@@ -25,6 +25,7 @@
                 app:surface_type="surface_view"
                 app:use_controller="true" />
         <ImageView
+
                 android:visibility="gone"
                 android:id="@+id/a15"
                 android:layout_gravity="center"

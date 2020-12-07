@@ -19,6 +19,7 @@ android {
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = 1.8
     }
 }
 
@@ -31,4 +32,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.android.exoplayer:exoplayer:2.11.8'
     implementation "com.google.android.exoplayer:exoplayer-ui:2.11.6"
+    // Base implementation with a standard SeekBar
+    implementation 'com.github.rubensousa:previewseekbar:3.0.0'
+
+    // ExoPlayer extension that contains a TimeBar.
+    // Grab this one if you're going to integrate with ExoPlayer
+    implementation 'com.github.rubensousa:previewseekbar-exoplayer:2.11.4.0'
+    annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 }
