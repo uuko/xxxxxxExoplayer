@@ -38,14 +38,14 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     private String sampleUrl =
-"http://iottalk.cmoremap.com.tw:6333/qbee205/remote.php/direct/gPErJL3uEd9Pf8EwudiF2ObfL4c4Mh9hHd1rWd2xlqs0VnZwIoB2sT8oM5cj";
+"http://iottalk.cmoremap.com.tw:6333/qbee205/remote.php/direct/RnyI5s24NiPEoetqYjagY8vDM4xUWfaH6dud9MB2uDX4Odyd52QKyPOBnMWA";
     private SimpleExoPlayer videoPlayer;
     private PlayerView video_player_view;
     private ExoPlayerManager exoPlayerManager;
     private PreviewTimeBar previewTimeBar;
     private PreviewSeekBar previewSeekBar;
     private static double nowit=0;
-
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         video_player_view=findViewById(R.id.video_player_view);
         ImageButton button=video_player_view.findViewById(R.id.exo_ffwd);
-      final ImageView imageView=findViewById(R.id.a15);
+        imageView=findViewById(R.id.a15);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,29 +61,37 @@ public class MainActivity extends AppCompatActivity {
                 if (getVideoDurationSeconds(videoPlayer)<(videoPlayer.getCurrentPosition()+15000)/1000){
 
                     videoPlayer.seekTo(getVideoDurationSeconds(videoPlayer)*1000);
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.animate()
+                            .translationY(view.getHeight())
+                            .setDuration(1000)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    imageView.setVisibility(View.GONE);
+                                }
+                            });
                 }
                 else {
                     videoPlayer.seekTo(videoPlayer.getContentPosition() + 15000);
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.animate()
+                            .translationY(view.getHeight())
+                            .setDuration(1000)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    imageView.setVisibility(View.GONE);
+                                }
+                            });
                 }
 
-                imageView.setVisibility(View.VISIBLE);
-                imageView.animate()
-                        .translationY(view.getHeight())
-                        .setDuration(1000)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                imageView.setVisibility(View.GONE);
-                            }
-                        });
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                imageView.setVisibility(View.GONE);
+
+
+                //imageView.setVisibility(View.GONE);
             }
         });
          initializePlayer();
