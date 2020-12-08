@@ -37,7 +37,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-    private String sampleUrl = "http://iottalk.cmoremap.com.tw:6333/qbee205/remote.php/direct/m1GlDxJxuvJDJV7rS9jWiZUeeM7OL7YcN55KsGrPnFRM8dmZGNb3ySrOx5yB";
+    private String sampleUrl =
+"http://iottalk.cmoremap.com.tw:6333/qbee205/remote.php/direct/gPErJL3uEd9Pf8EwudiF2ObfL4c4Mh9hHd1rWd2xlqs0VnZwIoB2sT8oM5cj";
     private SimpleExoPlayer videoPlayer;
     private PlayerView video_player_view;
     private ExoPlayerManager exoPlayerManager;
@@ -56,8 +57,15 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("rabbit", "onClick: ");
-                videoPlayer.seekTo(videoPlayer.getContentPosition() + 15000);
+                Log.d("rabbit", "onClick: "+getVideoDurationSeconds(videoPlayer)+"qqq   "+(videoPlayer.getCurrentPosition()+15000)/1000);
+                if (getVideoDurationSeconds(videoPlayer)<(videoPlayer.getCurrentPosition()+15000)/1000){
+
+                    videoPlayer.seekTo(getVideoDurationSeconds(videoPlayer)*1000);
+                }
+                else {
+                    videoPlayer.seekTo(videoPlayer.getContentPosition() + 15000);
+                }
+
                 imageView.setVisibility(View.VISIBLE);
                 imageView.animate()
                         .translationY(view.getHeight())
@@ -183,6 +191,19 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    };
 //
+
+    private int getVideoDurationSeconds(SimpleExoPlayer player)
+    {
+        double timeMs=(double) player.getDuration();
+        double totalSeconds = timeMs/1000.0;
+        int allSeconds=0;
+        allSeconds= ((int) Math.round((totalSeconds*1.0)/1.0));
+
+
+        Log.d("tttttttttt", "getVideoDurationSeconds: "+totalSeconds+"  aall  "+allSeconds
+        +"  /1000   "+timeMs/1000);
+        return allSeconds;
+    }
     private void initializePlayer() {
         videoPlayer=new SimpleExoPlayer.Builder(this).build();
         video_player_view.setPlayer(videoPlayer);
